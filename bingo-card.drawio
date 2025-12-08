@@ -1,0 +1,70 @@
+<mxfile host="65bd71144e">
+    <diagram id="Bv2P52ofRz6qE0PLc8G8" name="Page-1">
+        <mxGraphModel dx="1683" dy="1705" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/04/kubestronaut-stacked-color.png;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="-10" width="260" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2025/04/golden-kubestronaut-capitalK-color-1-1536x1536.png;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="370" width="260" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://images.credly.com/images/8b8ed108-e77d-4396-ac59-2504583b9d54/cka_from_cncfsite__281_29.png;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="10" width="160" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://images.credly.com/images/f88d800c-5261-45c6-9515-0458e31c3e16/twitter_thumb_201604_ckad_from_cncfsite.png;" parent="1" vertex="1">
+                    <mxGeometry x="297.5" y="10" width="160" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2023/01/kcsa_badge_new.png;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="20" width="150" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2021/09/KCNA-Logo-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="485" y="20" width="150" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2020/07/kubernetes-security-specialist-logo-300x285.png;" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="20" width="147.37" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="sketch=0;html=1;aspect=fixed;strokeColor=none;shadow=0;align=center;fillColor=#2D9C5E;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;shape=mxgraph.gcp2.check" parent="1" vertex="1">
+                    <mxGeometry x="900" y="100" width="87.5" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2020/11/lfcs_111820-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="250" width="169" height="169" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="440" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2023/09/ALL_Training_Badges_ICA-2-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="457.5" y="250" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2023/11/Training_Badge_CCA-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="252.5" y="260" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2023/11/Training_Badge_CAPA-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="457.5" y="440" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/03/CGOA-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="630" width="165" height="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/07/CBA-Cert-Badge-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="625.63" width="172.5" height="172.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/10/OTCA-Cert-Badge-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="427.5" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/09/Kyverno-KCA-Badge-1-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="696.25" y="634.38" width="163.75" height="163.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/11/CNPA-Badge-NEW-300x300.png;" parent="1" vertex="1">
+                    <mxGeometry x="900" y="245" width="179" height="179" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="sketch=0;html=1;aspect=fixed;strokeColor=none;shadow=0;align=center;fillColor=#2D9C5E;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;shape=mxgraph.gcp2.check" vertex="1" parent="1">
+                    <mxGeometry x="375" y="110" width="75" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2025/10/CNPE-Cert-Badge-300x294.png;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="435" width="158.16" height="155" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
