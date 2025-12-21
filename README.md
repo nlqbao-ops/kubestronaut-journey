@@ -8,6 +8,8 @@ Journey to claim the golden kubestronaut
 
 #### CKA
 - schedule at the end of November'25
+- passed in December'25
+- pending review and learning 
 
 #### KCSA
 - to schedule before the CKS 
