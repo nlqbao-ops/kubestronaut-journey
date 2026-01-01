@@ -1,6 +1,17 @@
 # kubestronaut-journey
 Journey to claim the golden kubestronaut
 
+
+#### stragegy to take exams 
+certificates should be learned and prepared together
+ 
+- Security: KCSA + CKS + Kyverno ( Q3'2026)
+- Delivery: CAPA + CGOA (Q1'2026)
+- Networking: Cilium + Istio ( Q2'2026) 
+- Platform: CNPA + CNPE + CBA ( Q4'2026)
+- Observability: PCA + OTCA ( Q2'2026) 
+- Linux: LFCS + KCNA ( Q1'2026)
+
 #### CKAD
 
 - passed in September
