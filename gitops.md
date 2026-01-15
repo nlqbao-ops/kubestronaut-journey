@@ -62,6 +62,53 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
 - Git fundamentals
 - YAML syntax familiarity
 
+
+---
+
+## LFS269
+
+### k8s for gitops
+why we need k8s for gitops
+
+### git workflow
+
+- fork and clone the app repo 
+
+- auto generate and commit manifests 
+
+- git branching and merging 
+- branching model and trunkbase dev 
+  - git flow 
+  - github flow 
+  - trunk-based dev 
+
+https://nvie.com/posts/a-successful-git-branching-model/
+https://docs.github.com/en/get-started/using-github/github-flow
+https://trunkbaseddevelopment.com/
+
+
+- enforcing branching policies 
+  - code need to be tested before go to trunk branch 
+  - "require pull request review before merging"
+  - "require status check to pass before merging" - need CI setup
+  - "include administrator"
+
+- tagging and sematic versioning
+  - sematic versioning 
+  - x.y.z - major(major release backward incompatible).minor(minor feature backward compatible).patch(bug fixes)
+  - how to tag: -a annotate 
+    - git tag -a v0.1.0 -m 'initial release' 
+    - git push origin v0.1.0
+
+### fluxCD
+
+https://fluxcd.io/flux/get-started/
+- install flux cli 
+  - create personal access token on github
+    - only the full repo access, readonly repo hook, make sure no delete access
+  - install flux cli 
+  - prepare working k8s cluster 
+  - boostraping flux infra 
 ---
 
 ## Week 1-2: GitOps Fundamentals & Terminology
