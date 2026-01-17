@@ -65,6 +65,36 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
 
 ---
 
+## LFS169
+
+### gitops
+
+- continous delivery of cloud native app 
+- running operations out of git 
+
+- 4 technologies 
+    - IAC
+    - Git - pull request, code review, branching 
+    - CICD - continous, automated
+    - convergence platforms - k8s - api, extensible, convergent 
+- gitops use cases
+    - continous delivery of app config 
+    - apply release strategies
+        - blue gree
+        - rolling update 
+        - canary 
+    - infra rollout to k8s 
+        - ingress
+        - namespace
+        - rbac 
+        - network policies 
+        - crds
+    - disaster recovery
+    - sync secrets 
+        - between vault - k8s
+
+---
+
 ## LFS269
 
 ### k8s for gitops
@@ -109,6 +139,99 @@ https://fluxcd.io/flux/get-started/
   - install flux cli 
   - prepare working k8s cluster 
   - boostraping flux infra 
+    - flux check --pre 
+    - flux boostrap github --owner --repo --branch --components
+    - can run boostrap many time 
+- flux components
+    - flux bootstrap 
+        - github
+        - git 
+        - gitlab
+    - input of bootstrap
+        - github user 
+        - repo 
+        - branch
+        - patch 
+        - personal
+        - team
+        - network policy 
+    - bootstrap creates
+        - k8s
+            - namespace
+            - crds
+            - controller(deployment)
+                - source
+                - kustomize 
+            - RBAC
+                - cluster role 
+                - cluster role binding
+                - service accounts 
+        - github
+            - repo : flux-infra
+            - deploy key 
+            - sync manifest - yaml
+    - CRDS
+        - buckets
+        - git repo 
+        - helm chart
+        - helm repo 
+    - workflow
+    - git repo (deploy manifest)
+        - sync(30s)
+        - source controller --> k8s event --> kustomize controller 
+        - deploy kubernetes
+- source controller 
+    - input
+        - git 
+        - helm 
+        - bucket
+    - output 
+        - artifact 
+            - tar.gz
+            - yaml 
+        - k8s event 
+            - k8s controller fetch the artifact and apply 
+- gitrepo crd spec 
+    - https://fluxcd.io/flux/components/source/gitrepositories/
+    - flux create source git -h
+    - components
+        - secret
+        - url
+        - branch
+- create source to sync 
+    - flux create source git podinfo --url --branch
+    - flux get sources
+- kustomize controller 
+    - plain yaml/overlays
+        - assemble yaml 
+            - apply k8s cluster 
+    - validate against k8s api
+    - garbage collection 
+- continous deployment
+    - flux reconcile kustomization app
+- export sync manifest
+
+
+### monitoring and alerting 
+- noti controller 
+    - input 
+        - k8s event
+            - source controller 
+            - kustomization controller
+            - helm controller
+    - output
+        - notify 
+            - chat 
+                - slack
+                - teams
+                - discord
+        - update commit
+            - git 
+                - github
+                - gitlab
+
+
+
 ---
 
 ## Week 1-2: GitOps Fundamentals & Terminology
