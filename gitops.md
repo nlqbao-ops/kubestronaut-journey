@@ -92,6 +92,95 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
     - disaster recovery
     - sync secrets 
         - between vault - k8s
+    - drift detection
+      - notify
+      - reconcile
+    - deploy to multiple k8s clusters
+    - securely handoff deploy to dev
+      - no cluster access to dev
+      - multi tenacy 
+      - separation of concern
+    - auto update k8s yaml on new image in registry
+
+- 4 principles 
+  1. Declarative
+    - yaml: helm, kustomize 
+  2. store desired state in Git
+  3. apply approved changes automatically 
+  4. check & correct with software agent
+    - check drift detection  
+- reconciliation models
+  - if watch and apply then would be pull approach
+    - a reconciler in each cluster 
+    - reconciler pull config and image in registry 
+    - flexible: reconciler contain in the cluster network  
+    - secure: cluster credential are not exposed
+    - scalable
+    - 2-way sync 
+  - trigger webhook and apply then would be push approach
+    - 1 reconciler in 1 cluster 
+    - apply to other environment/cluster
+    -  simple
+    - 1 reconciler
+    - sequencing/odering dependency mgmt is easier
+    - bandwidth is optimized 
+- tools of the trade
+  - tool
+    - fluxCD
+    - argoCD
+    - jenkinsX
+  - CI + CD: jenkinsX
+  - just CD: fluxCD/argoCD
+  - fluxCD/argoCD: similarity
+    - gitops principles
+    - k8s native - CRDS and operators
+    - lightweight to run
+    - sync git with k8s
+    - setup automated continous delivery
+    - support yaml manifest
+    - support helm charts, kustomize, ksonset, jsonnet
+    - support progressive releases
+    - support garbage collection 
+    - cncf projects 
+  - fluxCD/argoCD: difference
+  - jenkinX
+    - k8s native
+    - complete cicd solution
+    - gitops to promote code to different env
+    - use tekton for running ci pipelines
+    - use scaffold and kaniko to build container image
+    - support chatOps
+    - provide preview env
+    - provide quickstart to initialize project 
+    - complex and heavier than argo/flux
+    - multi tenancy not support 
+
+|feature |fluxCD | argoCD|
+|--------|-------|-------|
+|reconcile mode| pull | push  |
+|learning curve| high | low|
+|UI| no| yes
+|RBAC| k8s| its own|
+|auto image update| yes| no|
+|multi tenacity| yes|yes|
+|multi tenancy complex| complex| easy|
+|modular| yes|no|
+|drift mgmt| continous recon| event|
+|git integration| github,gitlab|all|
+
+- key benefits
+  - velocity: deploy faster 
+  - develper centric
+  - quick and easy recovery
+  - secure : separation of concern cicd 
+  - auditability: audit log outside of cluster
+  - self documented code
+  - rollout with a PR | rollback with a Revert
+  - code is reviewed
+  - observability
+    - single source of truth
+    - detect config driffs
+  - increase stability|reliability 
 
 ---
 
