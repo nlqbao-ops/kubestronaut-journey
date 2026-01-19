@@ -65,6 +65,125 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
 
 ---
 
+## LFS169
+
+### gitops
+
+- continous delivery of cloud native app 
+- running operations out of git 
+
+- 4 technologies 
+    - IAC
+    - Git - pull request, code review, branching 
+    - CICD - continous, automated
+    - convergence platforms - k8s - api, extensible, convergent 
+- gitops use cases
+    - continous delivery of app config 
+    - apply release strategies
+        - blue gree
+        - rolling update 
+        - canary 
+    - infra rollout to k8s 
+        - ingress
+        - namespace
+        - rbac 
+        - network policies 
+        - crds
+    - disaster recovery
+    - sync secrets 
+        - between vault - k8s
+    - drift detection
+      - notify
+      - reconcile
+    - deploy to multiple k8s clusters
+    - securely handoff deploy to dev
+      - no cluster access to dev
+      - multi tenacy 
+      - separation of concern
+    - auto update k8s yaml on new image in registry
+
+- 4 principles 
+  1. Declarative
+    - yaml: helm, kustomize 
+  2. store desired state in Git
+  3. apply approved changes automatically 
+  4. check & correct with software agent
+    - check drift detection  
+- reconciliation models
+  - if watch and apply then would be pull approach
+    - a reconciler in each cluster 
+    - reconciler pull config and image in registry 
+    - flexible: reconciler contain in the cluster network  
+    - secure: cluster credential are not exposed
+    - scalable
+    - 2-way sync 
+  - trigger webhook and apply then would be push approach
+    - 1 reconciler in 1 cluster 
+    - apply to other environment/cluster
+    -  simple
+    - 1 reconciler
+    - sequencing/odering dependency mgmt is easier
+    - bandwidth is optimized 
+- tools of the trade
+  - tool
+    - fluxCD
+    - argoCD
+    - jenkinsX
+  - CI + CD: jenkinsX
+  - just CD: fluxCD/argoCD
+  - fluxCD/argoCD: similarity
+    - gitops principles
+    - k8s native - CRDS and operators
+    - lightweight to run
+    - sync git with k8s
+    - setup automated continous delivery
+    - support yaml manifest
+    - support helm charts, kustomize, ksonset, jsonnet
+    - support progressive releases
+    - support garbage collection 
+    - cncf projects 
+  - fluxCD/argoCD: difference
+  - jenkinX
+    - k8s native
+    - complete cicd solution
+    - gitops to promote code to different env
+    - use tekton for running ci pipelines
+    - use scaffold and kaniko to build container image
+    - support chatOps
+    - provide preview env
+    - provide quickstart to initialize project 
+    - complex and heavier than argo/flux
+    - multi tenancy not support 
+
+|feature |fluxCD | argoCD|
+|--------|-------|-------|
+|reconcile mode| pull | push  |
+|learning curve| high | low|
+|UI| no| yes
+|RBAC| k8s| its own|
+|auto image update| yes| no|
+|multi tenacity| yes|yes|
+|multi tenancy complex| complex| easy|
+|modular| yes|no|
+|drift mgmt| continous recon| event|
+|git integration| github,gitlab|all|
+
+- key benefits
+  - velocity: deploy faster 
+  - develper centric
+  - quick and easy recovery
+  - secure : separation of concern cicd 
+  - auditability: audit log outside of cluster
+  - self documented code
+  - rollout with a PR | rollback with a Revert
+  - code is reviewed
+  - observability
+    - single source of truth
+    - detect config driffs
+  - increase stability|reliability 
+
+---
+
 ## LFS269
 
 ### k8s for gitops
@@ -109,6 +228,99 @@ https://fluxcd.io/flux/get-started/
   - install flux cli 
   - prepare working k8s cluster 
   - boostraping flux infra 
+    - flux check --pre 
+    - flux boostrap github --owner --repo --branch --components
+    - can run boostrap many time 
+- flux components
+    - flux bootstrap 
+        - github
+        - git 
+        - gitlab
+    - input of bootstrap
+        - github user 
+        - repo 
+        - branch
+        - patch 
+        - personal
+        - team
+        - network policy 
+    - bootstrap creates
+        - k8s
+            - namespace
+            - crds
+            - controller(deployment)
+                - source
+                - kustomize 
+            - RBAC
+                - cluster role 
+                - cluster role binding
+                - service accounts 
+        - github
+            - repo : flux-infra
+            - deploy key 
+            - sync manifest - yaml
+    - CRDS
+        - buckets
+        - git repo 
+        - helm chart
+        - helm repo 
+    - workflow
+    - git repo (deploy manifest)
+        - sync(30s)
+        - source controller --> k8s event --> kustomize controller 
+        - deploy kubernetes
+- source controller 
+    - input
+        - git 
+        - helm 
+        - bucket
+    - output 
+        - artifact 
+            - tar.gz
+            - yaml 
+        - k8s event 
+            - k8s controller fetch the artifact and apply 
+- gitrepo crd spec 
+    - https://fluxcd.io/flux/components/source/gitrepositories/
+    - flux create source git -h
+    - components
+        - secret
+        - url
+        - branch
+- create source to sync 
+    - flux create source git podinfo --url --branch
+    - flux get sources
+- kustomize controller 
+    - plain yaml/overlays
+        - assemble yaml 
+            - apply k8s cluster 
+    - validate against k8s api
+    - garbage collection 
+- continous deployment
+    - flux reconcile kustomization app
+- export sync manifest
+
+
+### monitoring and alerting 
+- noti controller 
+    - input 
+        - k8s event
+            - source controller 
+            - kustomization controller
+            - helm controller
+    - output
+        - notify 
+            - chat 
+                - slack
+                - teams
+                - discord
+        - update commit
+            - git 
+                - github
+                - gitlab
+
+
+
 ---
 
 ## Week 1-2: GitOps Fundamentals & Terminology
