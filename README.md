@@ -60,6 +60,8 @@ https://trainingportal.linuxfoundation.org/courses/istio-service-mesh-essentials
 
  entry-level certification designed for platform or cloud engineers with interests in networking, security, and observability
 
+ need document 
+
  https://trainingportal.linuxfoundation.org/courses/introduction-to-cilium-lfs146
 
 #### certified argo project associate 
@@ -80,12 +82,16 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
 
  Backstage adopters ensure their developers have the necessary skills and knowledge to build developer portals with Backstage
 
+ need document 
+
  https://trainingportal.linuxfoundation.org/courses/introduction-to-backstage-developer-portals-made-easy-lfs142
 
 
 #### opentelemetry certified associate 
 
 OpenTelemetry – the industry standard for tracing, metrics & logs.
+
+need document 
 
 https://trainingportal.linuxfoundation.org/courses/getting-started-with-opentelemetry-lfs148
 
