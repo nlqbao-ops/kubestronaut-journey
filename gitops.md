@@ -73,14 +73,18 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
 - running operations out of git 
 
 - 4 technologies 
-    - IAC
+    - IAC: manage, config, update infra using config file 
+      - for both machine and human 
+      - automation reduces workload and prevent casual errors 
+      - scalability 
+      - problem of idempotency 
     - Git - pull request, code review, branching 
     - CICD - continous, automated
     - convergence platforms - k8s - api, extensible, convergent 
 - gitops use cases
     - continous delivery of app config 
     - apply release strategies
-        - blue gree
+        - blue green
         - rolling update 
         - canary 
     - infra rollout to k8s 
@@ -98,17 +102,24 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
     - deploy to multiple k8s clusters
     - securely handoff deploy to dev
       - no cluster access to dev
-      - multi tenacy 
+      - multi tenancy 
       - separation of concern
     - auto update k8s yaml on new image in registry
 
 - 4 principles 
-  1. Declarative
-    - yaml: helm, kustomize 
-  2. store desired state in Git
-  3. apply approved changes automatically 
-  4. check & correct with software agent
-    - check drift detection  
+  1. Declarative: a system managed by GitOps must have its DESIRED state expressed declaratively
+    - desired state: represent the way system to work in "end state"
+    - desired state must be declarative: state of system is stored as a set of declaration without procedures for how that state will be achieved
+      - yaml: helm, kustomize 
+  2. Versioned and Immutable: desired state is stored in a way that enforces immutability and versioning and that retains a complete version history
+    - each change is tracked in a new version without altering previous
+      - so system can revert back to a previous version while preverving audit of all the changes
+  3. Pulled automatically: software agents automatically pull the desired state declarations from source
+    - GitOps controllers check the desired state by pulling declration from state store at regular internal  
+  4. Continously reconciled: sw agent continously observe actual system state and attempt to apply the desired state
+    - check drift detection: differnce between desired and running state.
+
+
 - reconciliation models
   - if watch and apply then would be pull approach
     - a reconciler in each cluster 
@@ -182,6 +193,88 @@ https://trainingportal.linuxfoundation.org/courses/gitops-continuous-delivery-on
     - detect config driffs
   - increase stability|reliability 
 
+
+### templating 
+- kustomize 
+
+- helm 
+
+- operators
+
+
+
+https://github.com/argoproj/argocd-example-apps/blob/master/plugins/kustomized-helm/README.md
+
+### git workflows 
+
+- separate your repos
+  - separate the app code and yaml config 
+  - dont want config change to trigger rebuild of app 
+  - approval process of getting a change into env should not hold back continous integration of your code
+  - in short, app code and config have independent lifecycles
+
+- separate development in directories, not branches 
+  - manage workflow through branches is not simple as a merge
+  - every env has config details specific to that env
+  - trunk-based dev
+- trunk-based dev 
+  - 
+
+- policies and security
+  - github branch protection rules 
+
+### repos and directory structures 
+- conway's law: any org that designs a system( defined broadly) will product a design whose structure is a copy of org communication structure 
+
+- best practices 
+  - DRY: dont repeat yourself
+  - parameterize where you need to
+- repo consideration 
+  - mono repo
+    - end user app
+    - cluster config 
+    - cluster bootstraping 
+    - central location for config change 
+    - straightforward, smoother and clearer approval process 
+    - problem in scalability 
+  - polyrepo
+    - design choice: many-to-many
+      - each repos points to a sinble cluster
+      - typical structure in siloed org where each team take care of deploying its own infra
+      - large number of repos to manage 
+- directory structures
+  - k8s platform admin
+    - focus on getting cluster boostrap and config 
+      - boostrap
+        - base
+        - overlays
+      - cluster-config
+        - gitops-controller
+        - identity-provider
+      - components
+        - applicationsets
+        - applications 
+  - k8s app dev
+    - base
+    - overlays
+      - dev
+      - prod
+      - stage
+  - gitops repo 
+    - bootstrap
+    - components
+    - core
+    - apps
+
+### CICD
+
+- CI managed
+
+- CI owned and CD via GitOps
+
+- CI triggered and GitOps owned
+
+- mindset shift
 ---
 
 ## LFS269
@@ -742,3 +835,11 @@ https://fluxcd.io/flux/get-started/
 **Last Updated:** January 5, 2026  
 **Target Exam Date:** Q1 2026  
 **Study Partner:** CAPA (Certified Argo Project Associate)
+
+
+#### review after take exam, waiting for the resutl
+
+the concept and thinking is good,can answer without issue 
+the main problem is that i dont fully understand mechanism of gitops reconciler/helm/...
+
+feel likely that i will pass, however if i failed, then can proceed to argocd, take some flux build and retake in near future 
