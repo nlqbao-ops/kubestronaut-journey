@@ -843,3 +843,5 @@ the concept and thinking is good,can answer without issue
 the main problem is that i dont fully understand mechanism of gitops reconciler/helm/...
 
 feel likely that i will pass, however if i failed, then can proceed to argocd, take some flux build and retake in near future 
+
+#### passed with 90%

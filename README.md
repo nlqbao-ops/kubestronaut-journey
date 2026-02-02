@@ -72,6 +72,8 @@ https://trainingportal.linuxfoundation.org/courses/devops-and-workflow-managemen
 
 #### certified gitops associate 
 
+- passed in Jan'2026 with 90%
+
 for DevOps engineers and team members, platform and software engineers, CI/CD practitioners and other team members who would build IDPs with GitOps built into them.
 
 https://trainingportal.linuxfoundation.org/courses/introduction-to-gitops-lfs169

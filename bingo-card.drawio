@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="Bv2P52ofRz6qE0PLc8G8" name="Page-1">
-        <mxGraphModel dx="1683" dy="1705" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1070" dy="1409" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -58,11 +58,14 @@
                 <mxCell id="22" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2024/11/CNPA-Badge-NEW-300x300.png;" parent="1" vertex="1">
                     <mxGeometry x="900" y="245" width="179" height="179" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="" style="sketch=0;html=1;aspect=fixed;strokeColor=none;shadow=0;align=center;fillColor=#2D9C5E;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;shape=mxgraph.gcp2.check" vertex="1" parent="1">
+                <mxCell id="23" value="" style="sketch=0;html=1;aspect=fixed;strokeColor=none;shadow=0;align=center;fillColor=#2D9C5E;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;shape=mxgraph.gcp2.check" parent="1" vertex="1">
                     <mxGeometry x="375" y="110" width="75" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2025/10/CNPE-Cert-Badge-300x294.png;" vertex="1" parent="1">
+                <mxCell id="25" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://training.linuxfoundation.org/wp-content/uploads/2025/10/CNPE-Cert-Badge-300x294.png;" parent="1" vertex="1">
                     <mxGeometry x="910" y="435" width="158.16" height="155" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="sketch=0;html=1;aspect=fixed;strokeColor=none;shadow=0;align=center;fillColor=#2D9C5E;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;shape=mxgraph.gcp2.check" vertex="1" parent="1">
+                    <mxGeometry x="570" y="738.13" width="75" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
