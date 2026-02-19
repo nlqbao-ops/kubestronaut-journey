@@ -63,6 +63,34 @@
 
 ## Week 1-2: Argo Workflows (Building on CKA/CKAD)
 
+### Argo CD key patterns
+- defining resources in a declarative fashion
+   - enable config of argo cd itself to managed via gitops and argo cd 
+- stateless architecture
+   - config are the state of the system that can be rebuilt at any time
+- enable extensilibility
+   - multi repos type content 
+   - built in support for templating resources 
+
+### installation 
+- considerations:
+   - multi-tenant/core installation 
+   - cluster/namespace
+   - HA?
+
+### Argo Applications 
+- argo cd app is the atomic working unit 
+   - define the end state of the desired set of resources within the k8s cluster 
+   - https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
+- app sources : CRD
+   - modify current running state 
+- destinations 
+   - 
+- tools 
+   - helm 
+   - kustomize 
+
+
 ### Argo Workflow Fundamentals
 **Focus Areas** (you already know K8s CRDs from CKA):
 - Workflow as Kubernetes CRD structure
