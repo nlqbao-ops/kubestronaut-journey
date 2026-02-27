@@ -89,7 +89,21 @@
 - tools 
    - helm 
    - kustomize 
+- components:
+   - hooks 
+   - probes 
 
+
+### manage app are sync 
+- argocd app sync
+- ways to enable automated sync:
+   - argocd app set APP-NAME --sync-policy automated 
+   - select Enable Auto Sync within the argo CD UI
+   - define the config within the app resources  
+
+### authentication and authorization 
+- user authentication 
+- client authentication 
 
 ### Argo Workflow Fundamentals
 **Focus Areas** (you already know K8s CRDs from CKA):
