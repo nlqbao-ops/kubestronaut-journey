@@ -105,6 +105,22 @@
 - user authentication 
 - client authentication 
 
+### cluster mgmt
+- argo cd has access to the local k8s cluster
+- local vs remote cluster
+   - argo cd treat both local in-cluster same remote cluster
+      - local: https://kubernetes.default.svc
+
+- hub-and-spoke design
+   - argo cd reaches out to perform actions on the target cluster -> push model
+   - config are obtained and cached on the control cluster -> pushed to the desired destination cluster
+      - consider firewall/nw policy/k8s api
+
+- cluster credentials
+   - stored in k8s secret in the same ns as argo cd is installed 
+      - name/server/ns/clusterResources/project/config
+      
+
 ### Argo Workflow Fundamentals
 **Focus Areas** (you already know K8s CRDs from CKA):
 - Workflow as Kubernetes CRD structure
