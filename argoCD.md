@@ -63,6 +63,64 @@
 
 ## Week 1-2: Argo Workflows (Building on CKA/CKAD)
 
+### Argo CD key patterns
+- defining resources in a declarative fashion
+   - enable config of argo cd itself to managed via gitops and argo cd 
+- stateless architecture
+   - config are the state of the system that can be rebuilt at any time
+- enable extensilibility
+   - multi repos type content 
+   - built in support for templating resources 
+
+### installation 
+- considerations:
+   - multi-tenant/core installation 
+   - cluster/namespace
+   - HA?
+
+### Argo Applications 
+- argo cd app is the atomic working unit 
+   - define the end state of the desired set of resources within the k8s cluster 
+   - https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
+- app sources : CRD
+   - modify current running state 
+- destinations 
+   - 
+- tools 
+   - helm 
+   - kustomize 
+- components:
+   - hooks 
+   - probes 
+
+
+### manage app are sync 
+- argocd app sync
+- ways to enable automated sync:
+   - argocd app set APP-NAME --sync-policy automated 
+   - select Enable Auto Sync within the argo CD UI
+   - define the config within the app resources  
+
+### authentication and authorization 
+- user authentication 
+- client authentication 
+
+### cluster mgmt
+- argo cd has access to the local k8s cluster
+- local vs remote cluster
+   - argo cd treat both local in-cluster same remote cluster
+      - local: https://kubernetes.default.svc
+
+- hub-and-spoke design
+   - argo cd reaches out to perform actions on the target cluster -> push model
+   - config are obtained and cached on the control cluster -> pushed to the desired destination cluster
+      - consider firewall/nw policy/k8s api
+
+- cluster credentials
+   - stored in k8s secret in the same ns as argo cd is installed 
+      - name/server/ns/clusterResources/project/config
+      
+
 ### Argo Workflow Fundamentals
 **Focus Areas** (you already know K8s CRDs from CKA):
 - Workflow as Kubernetes CRD structure
