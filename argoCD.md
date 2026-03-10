@@ -119,7 +119,28 @@
 - cluster credentials
    - stored in k8s secret in the same ns as argo cd is installed 
       - name/server/ns/clusterResources/project/config
-      
+- adding remote clusters
+   - create cluster 
+      - export REMOTE_CLUSTER_IP=xxx.xxx.xxx.xx
+      - export KUBECONFIG=...
+      - kind create cluster --name remote --config 
+      - unset KUBECONFIG
+   - adding cluster with the CLI 
+      - argocd login --insecure --grpc-web --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+      - argocd cluster add kind-remote -yes --kubeconfig ... --name remote 
+
+- deploy app to multiple clusters 
+   - app-of-apps pattern
+      - boostraping argocd instance 
+      - recovery from major outage 
+      - flexible where org have a desire for creating logical deployment 
+      - using argocd feature like sync waves and sync phases 
+   - using helm 
+      - 
+   - ApplicationSets
+      - templating engine 
+      - is fed parameters( generator) 
+      - factory that produces argo cd app
 
 ### Argo Workflow Fundamentals
 **Focus Areas** (you already know K8s CRDs from CKA):
