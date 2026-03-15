@@ -108,7 +108,7 @@
 ### cluster mgmt
 - argo cd has access to the local k8s cluster
 - local vs remote cluster
-   - argo cd treat both local in-cluster same remote cluster
+   - argo cd treat both local in-cluster same remote  cluster
       - local: https://kubernetes.default.svc
 
 - hub-and-spoke design
@@ -141,6 +141,52 @@
       - templating engine 
       - is fed parameters( generator) 
       - factory that produces argo cd app
+
+### multi-tenancy 
+- definition 
+   - architecture where single instance of software serves multi tenants 
+   - a tenant is typically a grp of users who share common access and privileges 
+- argoCD can granualarly set access control based on 
+   - actor performing the actions
+   - which resources is being accessed
+   - what action is being performed 
+
+- cluster-scoped 
+   - hub-based design
+   - argoCD becomes the interface on how to interact with all managed k8s cluster 
+   - the biggest challenge is that in cluster-scoped deployment, the service account associated with ArgoCD, have cluster-admin privileges 
+
+- namespace-scoped
+   - only privileges against a single namespace, allowing cluster admin to install different instances of argoCD and delegate control over to invididual teams 
+   - need additional step to setup service account
+   - installation assumes no privileges outside of namespace, so need elevated permission like installing CRDs 
+- Project 
+   - argo CD project provides a grouping of app, 
+
+
+### security 
+
+- those attack surface 
+   - REST API and UI exposed to user 
+   - user password
+   - securing communication with the argo CD server at the transport level is critical 
+   - encrypting network traffic using TLS cert is a must these day 
+      - can use self-signed cert at server start up 
+- repo access 
+   - deploy git server 
+
+- protected repo 
+
+- ssh-based authentication 
+- enabling resuse through credential templates 
+
+- enforcing signature verification 
+   - to prevent malicous activities 
+   - apply cryptographic signatures 
+   - enable signature verification 
+
+- app sync impersonation 
+   - with k8s impersonation, argo cd can perform app sync using specific account sepcified by the admin, rather than relying solely on the control plane service account 
 
 ### Argo Workflow Fundamentals
 **Focus Areas** (you already know K8s CRDs from CKA):
