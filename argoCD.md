@@ -220,6 +220,20 @@
 - Input/output parameters
 - Default values and overrides
 
+
+- 2 type of templates 
+   - work
+      - container 
+      - container Set
+      - data 
+      - resource 
+      - script  
+   - orchestration
+      - DAG
+      - steps 
+      - suspend 
+
+
 ### Argo Workflow Spec
 **Leverage CKA Knowledge:**
 - `entrypoint` definition (entry point template)
