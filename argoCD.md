@@ -351,6 +351,22 @@ argo terminate <workflow-name>
 - Multi-environment management
 - Project configuration and RBAC
 
+- create argo cd app
+   - name 
+   - project
+   - sync options
+   - source
+      - repo
+      - path
+      - branch
+   - destination
+      - cluster
+      - namespace
+-  argocd app create app-2 --repo https://github.com/mabusaa/argocd-example-apps.git --revision master --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace app-2 --sync-option CreateNamespace=true --grpc-web
+argocd app list --grpc-web
+argocd app sync app-2 --grpc-web
+
+- try prune when sync to make sure all system clear
 ### Config Argo CD with Helm and Kustomize
 **Helm Integration** (you used Helm in CKAD):
 - Helm repository configuration
