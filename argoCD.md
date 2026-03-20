@@ -829,3 +829,285 @@ kubectl argo rollouts dashboard  # Optional UI
 **Last Updated:** January 2026  
 **Target Exam Date:** End of Q1 2026 (February-March 2026)  
 **Study Partner:** CGOA (Completed ✅) - Leverage Flux knowledge for comparison
+
+
+
+# Argo Project Key Concepts - Official Documentation Reference
+
+## Argo Workflows - Key Concepts
+
+### Workflow Templates (Template Types)
+
+#### Work Templates (Execute actual work)
+
+**Container Template**: Runs a container, similar to a Pod spec. Most common template type for running containerized tasks.
+
+**Script Template**: Runs a script inline within a container. The script source is embedded in the template, making it convenient for simple operations.
+
+**Resource Template**: Creates/manages Kubernetes resources directly (Deployments, Services, etc.). Used for infrastructure orchestration.
+
+**Data Template**: Transforms or processes data without running containers. Useful for data manipulation.
+
+**ContainerSet Template**: Runs multiple containers in a single pod with dependencies between them.
+
+#### Orchestration Templates (Control workflow execution)
+
+**Steps Template**: Sequential execution with potential parallelism within each step. Like a traditional pipeline where you define steps that run in order.
+
+**DAG Template**: Directed Acyclic Graph - tasks run based on dependencies rather than order. Allows maximum parallelism while respecting dependencies.
+
+**Suspend Template**: Pauses workflow execution for manual approval or external events. Used for approval gates in pipelines.
+
+---
+
+### Artifacts
+
+**Purpose**: Pass data between workflow steps without using volumes.
+
+- **Input Artifacts**: Data consumed by a step from external sources (Git repos, S3, HTTP, previous step outputs)
+- **Output Artifacts**: Data produced by a step and stored for subsequent steps or external consumption
+- **Artifact Repository**: Configured via ConfigMap to specify storage backend (S3, GCS, MinIO, Artifactory)
+- **Garbage Collection**: Automatic cleanup of artifacts based on TTL policies to manage storage costs
+
+---
+
+### DAG vs Steps
+
+**Steps**: 
+- Define execution order sequentially (step 1, then step 2, etc.)
+- Can have parallel tasks within a single step using `[[...]]` notation
+- Better for linear pipelines with occasional parallelism
+
+**DAG**: 
+- Define tasks with explicit dependencies: `dependencies: [task-a, task-b]`
+- All tasks run in parallel unless dependencies exist
+- Better for complex workflows with multiple parallel paths
+- More flexible for fan-out/fan-in patterns
+
+---
+
+### Dynamic Parallelism
+
+**`withItems`**: Iterate over static list defined in YAML
+```yaml
+withItems: [item1, item2, item3]
+
+
+Argo CD - Key Concepts
+Application CRD
+The core resource in Argo CD. Defines:
+
+Source: Where to get desired state (Git repo, path, revision, Helm/Kustomize config)
+Destination: Where to deploy (Kubernetes cluster URL, namespace)
+SyncPolicy: How to sync (manual, automated, prune, selfHeal)
+Project: RBAC boundary for the application
+
+
+
+Sync Strategies
+Manual Sync: Explicit argocd app sync command required
+
+Automated Sync: Automatically syncs when Git changes detected
+
+Prune: Delete resources removed from Git (prune: true)
+
+SelfHeal: Auto-correct manual changes to cluster (selfHeal: true)
+
+Sync Waves: Control deployment order with annotations:
+
+Sync Hooks: Pre-sync, Sync, Post-sync, Skip, SyncFail hooks for custom actions
+
+Projects
+Logical grouping of Applications with RBAC:
+
+Source Restrictions: Which Git repos are allowed
+Destination Restrictions: Which clusters/namespaces allowed
+Resource Whitelist/Blacklist: Which Kubernetes resources can be deployed
+Roles: RBAC policies for who can sync, view, delete applications
+Purpose: Enable multi-tenancy where different teams get different projects with restricted access.
+
+Multi-Tenancy Approaches
+Cluster-Scoped
+Single Argo CD instance manages entire cluster
+Uses Projects for logical separation
+Service account has cluster-admin privileges
+Hub-and-spoke: one Argo CD manages multiple clusters
+Namespace-Scoped
+Multiple Argo CD instances, each in own namespace
+Each instance limited to its namespace
+Better security isolation
+Requires manual CRD installation (elevated permissions needed)
+
+App of Apps Pattern
+Bootstrap pattern where one "root" Application creates other Applications:
+
+Root app points to Git repo containing Application manifests
+When synced, creates child applications
+Use cases:
+
+Bootstrapping new Argo CD instances
+Disaster recovery
+Managing multiple environments
+Logical deployment grouping
+ApplicationSet
+Template engine for generating multiple Applications from generators:
+
+List Generator: Static list of parameters
+Cluster Generator: Generate app per registered cluster
+Git Generator: Generate apps from Git repo structure (directories, files)
+Matrix Generator: Combine multiple generators
+Pull Request Generator: Create temporary app per PR
+Pattern: Factory pattern - one ApplicationSet → many Applications
+
+Reconciliation Patterns
+Pull-based: Argo CD polls Git repository (default: 3 minutes)
+
+Webhook-based: Git sends webhook to Argo CD on push (faster, near real-time)
+
+Drift Detection: Compares Git (desired state) vs Cluster (live state)
+
+Health Assessment: Custom health checks for application resources
+
+Auto-sync with SelfHeal: Automatically corrects drift (similar to Flux force reconciliation)
+
+
+Hub-and-Spoke Design
+Argo CD reaches out to perform actions on target clusters (push model)
+Configurations obtained and cached on control cluster
+Pushed to desired destination cluster
+Considerations: Firewall rules, network policies, Kubernetes API access
+Cluster Credentials: Stored in Kubernetes Secret in same namespace as Argo CD installation
+
+Fields: name, server, namespace, clusterResources, project, config
+Argo Rollouts - Key Concepts
+Rollout CRD
+Superset of Deployment with progressive delivery strategies:
+
+Compatible with existing Deployment specs
+Adds strategy field for Canary or BlueGreen
+Rollout controller watches Rollout resources
+Integrates with traffic management (Service Mesh, Ingress)
+Phases: Healthy, Progressing, Degraded, Paused
+
+
+Components:
+
+Dependencies: Which events to listen for + filters
+Triggers: What actions to execute
+Filters: Event data conditions, time windows, context
+EventBus
+Messaging backbone (default: NATS):
+
+NATS Streaming: Default transport layer
+Jetstream: NATS 2.0+ with persistence
+Deployed per namespace
+Event flow: EventSource → EventBus → Sensor
+Trigger Types
+Actions executed by Sensors:
+
+Argo Workflow: Create and submit workflow
+Kubernetes Resource: Create/update/delete any K8s resource
+HTTP: Send HTTP requests to external systems
+AWS Lambda: Invoke Lambda functions
+Slack: Send Slack messages
+Log: Output to logs
+OpenWhisk: Invoke OpenWhisk actions
+
+# Install Argo Workflows
+kubectl create namespace argo
+kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v3.5.0/install.yaml
+
+# Install Argo CLI
+curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.5.0/argo-linux-amd64.gz
+gunzip argo-linux-amd64.gz
+chmod +x argo-linux-amd64
+sudo mv argo-linux-amd64 /usr/local/bin/argo
+
+# Verify installation
+argo version
+
+# Submit workflow from file
+argo submit workflow.yaml -n argo
+argo submit workflow.yaml -n argo --watch             # Watch progress
+argo submit workflow.yaml -n argo --wait              # Wait for completion
+argo submit workflow.yaml -n argo --log               # Show logs during execution
+
+# Submit with parameters
+argo submit workflow.yaml -n argo -p key=value
+
+# List workflows
+argo list -n argo
+argo list -n argo --status Running                    # Filter by status
+argo list -n argo --completed                         # Show completed only
+argo list -n argo --running                           # Show running only
+
+# Get workflow details
+argo get <workflow-name> -n argo
+argo get <workflow-name> -n argo -o yaml              # Output as YAML
+argo get <workflow-name> -n argo -o json              # Output as JSON
+
+# Watch workflow progress
+argo watch <workflow-name> -n argo
+
+# Get workflow logs
+argo logs <workflow-name> -n argo
+argo logs <workflow-name> -n argo --follow            # Follow logs
+argo logs <workflow-name> -n argo -c <container>      # Specific container
+argo logs <workflow-name>.<step-name> -n argo         # Specific step
+
+# Delete workflow
+argo delete <workflow-name> -n argo
+argo delete --completed -n argo                       # Delete all completed
+argo delete --older 7d -n argo                        # Delete older than 7 days
+
+# Terminate running workflow
+argo terminate <workflow-name> -n argo
+
+# Stop workflow (graceful)
+argo stop <workflow-name> -n argo
+
+# Retry failed workflow
+argo retry <workflow-name> -n argo
+
+# Resubmit workflow (create new instance)
+argo resubmit <workflow-name> -n argo
+
+# Suspend workflow
+argo suspend <workflow-name> -n argo
+
+# Resume suspended workflow
+argo resume <workflow-name> -n argo
+
+# Create WorkflowTemplate
+argo template create template.yaml -n argo
+
+# List templates
+argo template list -n argo
+
+# Get template details
+argo template get <template-name> -n argo
+
+# Delete template
+argo template delete <template-name> -n argo
+
+# Submit workflow from template
+argo submit --from workflowtemplate/<template-name> -n argo
+argo submit --from workflowtemplate/<template-name> -n argo -p key=value
+
+# List archived workflows
+argo archive list
+
+# Get archived workflow
+argo archive get <uid>
+
+# Delete archived workflow
+argo archive delete <uid>
+
+--watch, -w           # Watch workflow progress
+--wait                # Wait for completion
+--log                 # Show logs
+--output, -o          # Output format (yaml, json, name)
+--parameter, -p       # Set parameters
+--namespace, -n       # Specify namespace
+--verbose             # Verbose output
+--help, -h            # Show help
