@@ -43,6 +43,11 @@
 - ✅ CI/CD concepts
 
 ---
+## result 
+
+passed with 75% in March 2026, just barely passed
+
+---
 
 ## Your Advantages
 

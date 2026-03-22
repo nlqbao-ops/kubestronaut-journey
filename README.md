@@ -10,7 +10,7 @@ certificates should be learned and prepared together
 - Networking: Cilium + Istio ( Q2'2026) 
 - Platform: CNPA + CNPE + CBA ( Q4'2026)
 - Observability: PCA + OTCA ( Q2'2026) 
-- Linux: LFCS + KCNA ( Q1'2026)
+- Linux: LFCS + KCNA ( Q3'2026)
 
 #### CKAD
 
@@ -65,6 +65,8 @@ https://trainingportal.linuxfoundation.org/courses/istio-service-mesh-essentials
  https://trainingportal.linuxfoundation.org/courses/introduction-to-cilium-lfs146
 
 #### certified argo project associate 
+
+- passed in March'2026 with 75%, just barely passed
 
 associate-level certification designed for engineers, data scientists and others interested in demonstrating their understanding of the Argo Project ecosystem.
 
