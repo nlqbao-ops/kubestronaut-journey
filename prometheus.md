@@ -182,3 +182,88 @@
 - [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus) — curated exporter and tooling list
 - Practice environment: run Prometheus + node_exporter + Alertmanager locally via Docker Compose
 
+
+
+### learning 
+
+#### install 
+
+tar -xzf prometheus-*.linux-amd64.tar.gz
+
+tar -xzf prometheus-3.11.0.linux-amd64.tar.gz
+
+curl -L -O https://github.com/prometheus/prometheus/releases/download/v3.11.0/prometheus-3.11.0.linux-amd64.tar.gz
+cd prometheus-*.linux-amd64/
+
+curl -L -O https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
+
+tar -xzf node_exporter-*.linux-amd64.tar.gz
+
+curl -L -O https://github.com/prometheus/alertmanager/releases/download/v0.31.1/alertmanager-0.31.1.linux-amd64.tar.gz
+
+tar -xzf alertmanager-*.linux-amd64.tar.gz
+
+#### app monitoring 
+
+pip install prometheus_client
+
+#### exposition 
+
+exposition: process of making metrcis available in prometheus 
+- support 2 human-readable text format:
+  - prometheus text format 
+  - openmetrics 
+
+- common client libraries 
+  - python : prometheus_client 
+  - WSGI: 
+  - twisted: python event driven network engine 
+  - multiprocess with gunicorn
+  - Go: http.Handler
+  - java: simpleclient, HTTPServer, Servlet, 
+
+- Pushgateway: metric cache for service-level batch jobs
+  - due to batch job run on regular schedule, not continous running, prometheus can't exactly scrape them 
+    - batch job to push to pushgateway 
+    - prometheus regular scrape pushgateway
+
+
+- Bridges 
+  - bridge take metrics output from the client library and output it to something other than prometheus 
+
+
+- Parsers
+  - to feed prometheus metrics into other monitoring system 
+
+- metrics types 
+
+- labels 
+
+- escaping 
+
+- timestamps 
+
+- OpenMetrics 
+
+#### labels 
+
+- instrumentation 
+
+- metric 
+  - latency_seconds_sum{path="/bar"}: family
+  - latency_seconds{path="/bar"}: child
+  - latency_seconds: family
+
+- aggregating 
+
+
+- label patterns 
+  - enum
+  - info
+
+
+- cardinality 
+
+#### dashboard with grafana 
+
+docker run -d --name=grafana --net=host grafana/grafana:9.1.6
