@@ -3,6 +3,47 @@
 > Exam taken **after** shared foundations with OTelCA are complete (Weeks 1–5 of dual plan).
 > PCA-specific deep dive: **Weeks 6–7**, then integration review in **Week 10**.
 
+
+## learning
+
+### fundamentals of monitoring 
+
+### prometheus architecture 
+
+
+- client libraries 
+  - official
+  - go, python, java/jvm,ruby, rust
+  - third parties: c#/.net, node.js, haskell, erlang
+
+- exporters
+  - take request from prometheus
+  - gathers the required data from the app
+  - transform it into correct format
+  - return response to prometheus
+  - using custom collector or ConstMetrics
+
+
+- service discovery 
+  - to give prometheus know what to monitor and notice if soemthing it is meant to be monitoring is not responding
+  - integration with many common svc discovery mechanisms: k8s, EC2, consul
+  - prometheus allows you to config how metadata from svc discovery to monitoring targets and their labels using relabeling 
+
+- scraping
+  - svc discovery and relabeling give us a list of target to be monitored
+  - HTTP request called a scrape
+  - prometheus is pull-based system, when and what to scrape, based on its config
+
+- storage
+  - stores data locally in a custom db
+
+- dashboards
+  - has a number of HTTP API allows you to both request raw data and evaluate PromQL queries
+  - provides the expression browser
+  - use grafana for dashboard
+
+- recording rules and alert
+  - recording rules allow PromQL expression to be evaluated on regular basis
 ---
 
 ## Domains
