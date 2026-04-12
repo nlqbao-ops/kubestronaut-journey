@@ -308,3 +308,288 @@ exposition: process of making metrcis available in prometheus
 #### dashboard with grafana 
 
 docker run -d --name=grafana --net=host grafana/grafana:9.1.6
+
+
+### infra monitoring 
+
+#### node exporter 
+- CPU collector 
+
+- filesystem collector
+
+- diskstats collector
+
+- netdev collector
+
+- meminfo collector
+
+- hwmon collector 
+
+- stat collector 
+
+- uname collector 
+
+- OS collector 
+
+- loadavg collector 
+
+https://www.brendangregg.com/blog/2017-08-08/linux-load-averages.html
+
+- Pressure collector 
+
+- textfile collector 
+
+#### service discovery 
+
+- static config 
+
+- file config 
+
+- HTTP service discovery 
+
+- consul
+
+- EC2
+
+- relabeling 
+
+- target labels 
+
+- case 
+
+
+#### container and kubernetes 
+
+- cAdvisor - exporter that provides metrics about cgroups 
+
+- cpu 
+
+- memory 
+
+- how to use endpointslice
+
+- pod 
+
+- ingress
+
+- kube-state-metrics 
+
+- alternative deployments
+  - prometheus operator 
+  - prometheus helm charts 
+
+#### common exporters
+
+- Consul exporter
+
+- MySQLd
+
+- Grok exporter 
+
+- blackbox 
+
+- ICMP 
+
+- TCP
+
+- DNS 
+
+- prometheus config 
+
+#### working with other monitoring 
+
+#### writing exporter
+
+### promQL
+
+#### basics
+
+- gauge: snapshot of state, can be use with sum, average, minimum, maximum
+
+container_cpu_usage_seconds_total
+
+-  Average memory usage per namespace
+avg by (namespace) (container_memory_usage_bytes)
+
+-  Top 5 pods by memory usage
+topk(5, container_memory_usage_bytes{namespace="cattle-monitoring-system"})
+
+
+- counter: number of size of events, value of app expose on their /metrics 
+
+
+- CPU usage across all pods in namespace
+rate(container_cpu_usage_seconds_total{namespace="cattle-monitoring-system"}[5m])
+
+- CPU usage grouped by pod
+sum by (pod) (rate(container_cpu_usage_seconds_total{namespace="cattle-monitoring-system"}[5m]))
+
+- summary 
+
+- Total CPU usage across all pods in namespace
+sum(rate(container_cpu_usage_seconds_total{namespace="cattle-monitoring-system"}[5m]))
+
+- CPU usage grouped by pod
+sum by (pod) (rate(container_cpu_usage_seconds_total{namespace="cattle-monitoring-system"}[5m]))
+
+
+- historgram : track the distribution of the size of events, calculating quantiles - need to revisit
+histogram_quantile(0.90,sum(
+        rate(container_cpu_usage_seconds_total{namespace="cattle-monitoring-system"}[5m])
+    ))
+
+
+- selector 
+  - 4 matchers
+    - =
+    - !=
+    - =~ : regular expression matcher
+    - !~ : negative regular expression matcher
+
+- instant vector 
+
+- range vector 
+
+- subqueries 
+
+- offset 
+
+- at modifier : @ modifier to change the evaluation of vector selector, range selector and subqueries 
+
+- HTTP API 
+  - query : /api/v1/query
+  - query_range: /api/v1/query_range
+
+#### aggregation operators 
+
+#### binary operators 
+
+- arithmetic operators 
+  - add 
+  - minus 
+  - multiply 
+  - division 
+  - modulo
+  - exponentiation 
+- trigonometric operator 
+
+- comparison 
+  - ==
+  - != 
+  - > 
+  - <
+  - >=
+  - <=
+
+- vector matching ???
+  - one to one 
+  - one to many 
+  - many to many 
+
+- or operator 
+
+- unless operator 
+
+- and operator 
+
+
+#### functions 
+
+- changing type 
+  - vector 
+  - scalar
+- math
+  - abs
+  - ln, log2, log10
+  - exp
+  - sqrt
+  - ceil and floor 
+  - round 
+  - clamp, clamp_max, clamp_min
+  - sgn
+- trigonometric
+
+- time and date
+  - time 
+  - minute, hour, day_of_week, day_of_month, day_of_year, days_in_month, month, year
+  - timestamp
+
+- labels
+  - label_replace
+  - label_join 
+
+- missing series, absent, absent_over_time
+- sorting
+  - sort
+  - sort_desc
+
+- histogram
+  - histogram_quantile
+
+- counter 
+  - rate 
+  - increase
+  - irate
+  - resets
+- changing gauges 
+  - changes 
+  - deriv 
+  - predict_linear
+  - delta 
+  - idelta
+  - holt_winters
+- aggregation over time 
+
+
+#### recording rules 
+- rules as rules.yaml as rules config 
+
+- when to use recording rules 
+  - reducing cardinality 
+  - composing range vector functions 
+  - rules for api 
+- when not to use rules 
+  - undo benefits of labels 
+  - preaggregating every metric an app exposes 
+
+
+### alerting 
+
+- prometheus -> alertmanager -> email/pagerduty/chat
+
+---
+ - name: node_rules
+   rules:
+    - record: job:up:avg
+      expr: avg without(instance)(up{job="node"})
+    - alert: ManyInstancesDown
+      expr: job:up:avg{job="node"} < 0.5
+---
+
+- for 
+
+- annotations and templates 
+
+#### alert manager 
+  - inhibition 
+
+  - silencing 
+
+  - routing 
+
+  - grouping 
+
+  - throttling and repetition 
+
+  - notification 
+
+  - routing tree 
+
+
+  ### items need to revisit 
+
+  - difference between gauge/counter... 
+
+  - distributed tracing 
+
+  2
