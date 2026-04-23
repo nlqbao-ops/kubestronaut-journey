@@ -607,46 +607,110 @@ credit for https://yuyatinnefeld.com/2023-07-24-pca/
   - monitoring desired metrics ?
 - What is RED Method?
   - monitoring 3 metrics: request rate, errors, duration 
-What are the distinctions between SLO, SLI, and SLA?
-In the context of tracing, what is the meaning or representation of a span?
-In which scenarios is distributed tracing less beneficial or NOT as applicable?
+- What are the distinctions between SLO, SLI, and SLA?
+  - SLA - service level agreements - agreement with customer 
+  - SLO - * objective - objective team must hit 
+  - SLI - * indicator - number/measurement of your performance 
+- In the context of tracing, what is the meaning or representation of a span?
+  - ?
+- In which scenarios is distributed tracing less beneficial or NOT as applicable?
+  - 
 What are typically tracked within a span of a trace?
-What is the good and bad metric?
-Which type of data is monitored by Prometheus?
-In the context of monitoring and observability, what type of data is typically used to define a SLI?
-What is the meaning or purpose of an error budget policy?
-What is one advantage of the push model for recoring metrics compared to pull models?
-How do Prometheus, ELK stack, and InfluxDB differ in terms of their functionalities and use cases?
-What is the definition of a metric?
-What are the Prometheus exemplars?
-What is one of the main purposes or goals of logging?
-What are the 3 core components of observability?
-What is the Monitoring
-What is the Telemetry?
+- What is the good and bad metric?
+  - 
+- Which type of data is monitored by Prometheus?
+  - metrics 
+- In the context of monitoring and observability, what type of data is typically used to define a SLI?
+  - metrics, time, percentage success/failure/error 
+- What is the meaning or purpose of an error budget policy?
+  - 
+- What is one advantage of the push model for recoring metrics compared to pull models?
+  - get the active role when to 
+- How do Prometheus, ELK stack, and InfluxDB differ in terms of their functionalities and use cases?
+  - prometheus - metrics, pull based http, simple yet powerful model and query language 
+  - elk stack - logs aggregation and indexing, log analysis and visualize, scalable but requrie significant mgmt 
+  - influx db - time-series that provide SQL-like query language, push-based system 
+- What is the definition of a metric?
+  - metric ignore context and focus on continous quantified measurement of system, process or product 
+  - for valuable insight 
+- What are the Prometheus exemplars?
+  - speed and accuracy
+  - easy to deploy 
+  - easy to integrate on an existing stack  
+- What is one of the main purposes or goals of logging?
+  - provide context for troubleshooting and debugging 
+- What are the 3 core components of observability?
+  - logs
+  - metrics
+  - trace
+- What is the Monitoring
+- What is the Telemetry?
 What is the challenges of observability?
 #### Prometheus Fundamentals (20%)
-What is the CLI utility tool for Prometheus called?
-What are the limitations of Prometheus?
-What is Service Discovery and which categories are there?
-Which property configures the timing to scrape metrics from targets?
-Which section in the Prometheus configuration file governs the selection of targets to be scraped?
-Which action in the label configuration is used to delete a specific target?
-How is managed data retention in prometheus?
-What are the essential 3 components of Prometheus?
-What is required to be able to reload Prometheus?
-What are 3 methods to restart the Prometheus server?
-What HTTP method does Prometheus employ for performing scrapes?
-Which SD configuration is recommended for scraping EC2 instances?
-Which SD configuration is recommended for nodes of Elastic Kubernetes Service on AWS?
-What is the purpose of the scrape_interval configuration in Prometheus?
-Which type of database does Prometheus utilize?
-What component is responsible for collecting metrics from an instance and exposing them in a format that Prometheus expects?
-Which component is suitable for collecting metrics from batch/cron jobs?
-When is the configuration option honor_labels:true used?
-What is the purpose of port 9090/9093/9100/9091/9115 in Prometheus?
-what are 2 default metric labels?
-Which of the file systems is recommended/supported by Prometheus?
-How can you configure a Blackbox Exporter probe to check the successful response of your servers to PING?
+- What is the CLI utility tool for Prometheus called?
+  - prometheus cli 
+- What are the limitations of Prometheus?
+  - focus on metrics, not log
+  - no long time storage by default 
+  - scaling limitation 
+  - high cardinality data limitations 
+  - federation and HA limit 
+- What is Service Discovery and which categories are there?
+  - to listen and scrape metrics from app 
+  - enable serice to find and comm without harcoded IP addresses or endpoints 
+  - categories:
+    - client-side service: allows app to report their locations 
+    - server-side service: use load balancer to resolve downstream service 
+- Which property configures the timing to scrape metrics from targets?
+- Which section in the Prometheus configuration file governs the selection of targets to be scraped?
+  - scrap_configs
+- Which action in the label configuration is used to delete a specific target?
+- How is managed data retention in prometheus?
+  - default data retention is 15 days 
+  - using tag storage.tsdb.retention.time in the config file 
+- What are the essential 3 components of Prometheus?
+  - prometheus server 
+  - client libraries 
+  - exporter 
+  - alermanager 
+
+- What is required to be able to reload Prometheus?
+  - send SIGHUP signal to prometheus process using command: kill -HUP <pid>
+  - send HTTP POST to /reload endpoint  
+- What are 3 methods to restart the Prometheus server?
+  - using systemclt restart prometheus
+  - reloading prometheus 
+  - 
+- What HTTP method does Prometheus employ for performing scrapes?
+  - pull based ?
+  - GET request 
+- Which SD configuration is recommended for scraping EC2 instances?
+  - Prometheus EC2 Service Discovery 
+- Which SD configuration is recommended for nodes of Elastic Kubernetes Service on AWS?
+  - consul ?
+
+- What is the purpose of the scrape_interval configuration in Prometheus?
+  - interval duration of for scrape endpoint
+- Which type of database does Prometheus utilize?
+  - customize database of postgres 
+  - time-series database 
+- What component is responsible for collecting metrics from an instance and exposing them in a format that Prometheus expects?
+  - client libraries 
+- Which component is suitable for collecting metrics from batch/cron jobs?
+  - pushgateway 
+- When is the configuration option honor_labels:true used?
+  - keep the labels from the scrapped data and ignores conflicting server-side labels
+- What is the purpose of port 9090/9093/9100/9091/9115 in Prometheus?
+  - 9090: web UI and API
+  - 9093: alertmanager
+  - 9100: node exporter
+  - 9091: pushgateway
+  - 9115: blackbox exporter
+- what are 2 default metric labels?
+  - ?
+- Which of the file systems is recommended/supported by Prometheus?
+  - local POSIX file system liek ext4
+- How can you configure a Blackbox Exporter probe to check the successful response of your servers to PING?
 How do you configure the targets that Prometheus should scrape?
 What is the agent deployment mode of Prometheus?
 Which CLI command is suitable for unit testing Prometheus rules?
