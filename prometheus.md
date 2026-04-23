@@ -711,14 +711,33 @@ What is the challenges of observability?
 - Which of the file systems is recommended/supported by Prometheus?
   - local POSIX file system liek ext4
 - How can you configure a Blackbox Exporter probe to check the successful response of your servers to PING?
-How do you configure the targets that Prometheus should scrape?
-What is the agent deployment mode of Prometheus?
-Which CLI command is suitable for unit testing Prometheus rules?
+- How do you configure the targets that Prometheus should scrape?
+  - config in scrape_configs
+  - target specify 
+
+- What is the agent deployment mode of Prometheus?
+  - to be enabled --enable-feature=agent
+  - data is only stored locally until it is transmitted to the Remote Write
+  - make it more lightweight solution 
+  - recommend for most env, as it separate logical responsibility and more efficient way 
+  - Collector, a component of OpenTelemetry, can be deployed in agent mode 
+
+- Which CLI command is suitable for unit testing Prometheus rules?
+  - promtool to test and validate aspect of prometheus config file and ruels 
+  - cmd: promtool check rules /etc/prometheus/first_rules.yml
+
 Which CLI command is suitable for checking validity of the config files?
-How do you define the targets with SD that Prometheus should collect metrics from?
-How can you delete the specific time series metrics of Prometheus?
-How can you delete the all time series metrics of Prometheus?
-Which format does file-based SD provide?
+  - promtool to check config file 
+- How do you define the targets with SD that Prometheus should collect metrics from?
+  - define target
+  - predefined plugins 
+    - aws, azure, kubernetes 
+- How can you delete the specific time series metrics of Prometheus?
+  - http request /api/v1/admin/tsdb/delete
+- How can you delete the all time series metrics of Prometheus?
+  - /api/v1/admin/tsdb/delete HTTP endpoint 
+- Which format does file-based SD provide?
+  - simple text file where each line contains a key value pair 
 #### PromQL (28%)
 What is PromQL?
 What is histogram metric in Prometheus?
