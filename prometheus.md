@@ -605,6 +605,7 @@ credit for https://yuyatinnefeld.com/2023-07-24-pca/
   - pull method 
 - What is the Observability?
   - monitoring desired metrics ?
+  - understand what happening inside a system and predict how it will behave 
 - What is RED Method?
   - monitoring 3 metrics: request rate, errors, duration 
 - What are the distinctions between SLO, SLI, and SLA?
@@ -612,67 +613,76 @@ credit for https://yuyatinnefeld.com/2023-07-24-pca/
   - SLO - * objective - objective team must hit 
   - SLI - * indicator - number/measurement of your performance 
 - In the context of tracing, what is the meaning or representation of a span?
-  - ?
+  - span is singple operation/unit of work within a distributed system and captures the start and end time
 - In which scenarios is distributed tracing less beneficial or NOT as applicable?
-  - 
-What are typically tracked within a span of a trace?
+  - for monolith system 
+- What are typically tracked within a span of a trace?
+  - operation name, trace id, spand id, start and end timestamp, duration, parent span id 
+
 - What is the good and bad metric?
-  - 
+  - bad: a metric with a lot of variance and poor correlation with user experience
+  - good: metric to set easier threshold for because there is no overlap 
 - Which type of data is monitored by Prometheus?
-  - metrics 
+  - metrics (numeric values )
 - In the context of monitoring and observability, what type of data is typically used to define a SLI?
   - metrics, time, percentage success/failure/error 
 - What is the meaning or purpose of an error budget policy?
-  - 
+  - error budget policy is concept used in context of SLO and SLA and is to define the acceptable level of errors or service diruptions that a system or service and experience 
 - What is one advantage of the push model for recoring metrics compared to pull models?
-  - get the active role when to 
+  - timely and proactive data collection /pushing into the centralized data system 
 - How do Prometheus, ELK stack, and InfluxDB differ in terms of their functionalities and use cases?
   - prometheus - metrics, pull based http, simple yet powerful model and query language 
   - elk stack - logs aggregation and indexing, log analysis and visualize, scalable but requrie significant mgmt 
-  - influx db - time-series that provide SQL-like query language, push-based system 
+  - influx db - time-series that provide SQL-like query language, push-based system, handled high volume of time-stamped data(IoT, Sensor, Analytics)
 - What is the definition of a metric?
   - metric ignore context and focus on continous quantified measurement of system, process or product 
   - for valuable insight 
+  - numeric time-series data point 
 - What are the Prometheus exemplars?
-  - speed and accuracy
-  - easy to deploy 
-  - easy to integrate on an existing stack  
+  - exemplar is a specific trace represent of measurement taken in a given time interval and provides additional information about specific data point
 - What is one of the main purposes or goals of logging?
-  - provide context for troubleshooting and debugging 
+  - provide context for troubleshooting and debugging
+  - gather and aggregate textual event data from a service for troubleshooting 
 - What are the 3 core components of observability?
   - logs
   - metrics
   - trace
 - What is the Monitoring
+  - continue observation of a system to detect and alert on abnormal behavior
 - What is the Telemetry?
-What is the challenges of observability?
+  - automate collection and transmission of data from remote sources 
+- What is the challenges of observability?
+  - data silos
+  - volume, velocity, variety, and complexity data
+  - lack of pre-production 
 #### Prometheus Fundamentals (20%)
 - What is the CLI utility tool for Prometheus called?
-  - prometheus cli 
+  - promtool
 - What are the limitations of Prometheus?
   - focus on metrics, not log
   - no long time storage by default 
-  - scaling limitation 
+  - scaling limitation with milions of TS 
   - high cardinality data limitations 
   - federation and HA limit 
 - What is Service Discovery and which categories are there?
   - to listen and scrape metrics from app 
   - enable serice to find and comm without harcoded IP addresses or endpoints 
   - categories:
-    - client-side service: allows app to report their locations 
-    - server-side service: use load balancer to resolve downstream service 
+    - top down ( ec2)
+    - bottom up( consol) 
 - Which property configures the timing to scrape metrics from targets?
+  - scrape_intervals
 - Which section in the Prometheus configuration file governs the selection of targets to be scraped?
   - scrap_configs
 - Which action in the label configuration is used to delete a specific target?
+  - scrape_configs -> relabel_configs -> action:drop or action:keep
 - How is managed data retention in prometheus?
   - default data retention is 15 days 
-  - using tag storage.tsdb.retention.time in the config file 
+  - using tag storage.tsdb.retention.time and storage.tsdb.retention.size in the config file 
 - What are the essential 3 components of Prometheus?
-  - prometheus server 
-  - client libraries 
-  - exporter 
-  - alermanager 
+  - Retrieval
+  - TSDB
+  - HTTP server
 
 - What is required to be able to reload Prometheus?
   - send SIGHUP signal to prometheus process using command: kill -HUP <pid>
@@ -686,16 +696,17 @@ What is the challenges of observability?
   - GET request 
 - Which SD configuration is recommended for scraping EC2 instances?
   - Prometheus EC2 Service Discovery 
+  - ec2_sd_configs
 - Which SD configuration is recommended for nodes of Elastic Kubernetes Service on AWS?
-  - consul ?
+  - ec2_sd_configs
 
 - What is the purpose of the scrape_interval configuration in Prometheus?
   - interval duration of for scrape endpoint
+  - how frequently prometheus collect and update the metrics
 - Which type of database does Prometheus utilize?
-  - customize database of postgres 
   - time-series database 
 - What component is responsible for collecting metrics from an instance and exposing them in a format that Prometheus expects?
-  - client libraries 
+  - prometheus exporter
 - Which component is suitable for collecting metrics from batch/cron jobs?
   - pushgateway 
 - When is the configuration option honor_labels:true used?
@@ -707,12 +718,14 @@ What is the challenges of observability?
   - 9091: pushgateway
   - 9115: blackbox exporter
 - what are 2 default metric labels?
-  - ?
+  - instance
+  - job
 - Which of the file systems is recommended/supported by Prometheus?
-  - local POSIX file system liek ext4
+  - local POSIX file system liek ext4, XFS, NTFS
 - How can you configure a Blackbox Exporter probe to check the successful response of your servers to PING?
+  - internet control message protocol ( ICMP) -> prober:icmp
 - How do you configure the targets that Prometheus should scrape?
-  - config in scrape_configs
+  - config in scrape_configs -> static_configs -> targets:xxx
   - target specify 
 
 - What is the agent deployment mode of Prometheus?
@@ -724,20 +737,26 @@ What is the challenges of observability?
 
 - Which CLI command is suitable for unit testing Prometheus rules?
   - promtool to test and validate aspect of prometheus config file and ruels 
-  - cmd: promtool check rules /etc/prometheus/first_rules.yml
+  - cmd: promtool test rules /etc/prometheus/first_rules.yml
 
 Which CLI command is suitable for checking validity of the config files?
-  - promtool to check config file 
+  - promtool to check config file
+  - promtool check rules /etc/prometheus/test.yaml 
 - How do you define the targets with SD that Prometheus should collect metrics from?
   - define target
+  - scrape_configs and *_sd_configs on per-job basis
   - predefined plugins 
     - aws, azure, kubernetes 
 - How can you delete the specific time series metrics of Prometheus?
+  - --web.enable-admin-api
   - http request /api/v1/admin/tsdb/delete
+  - curl - X POST -g 'http://localhost:9090/api/v1/admin/tsdb/delete_series?match[]={xxxx="yyy"}'
 - How can you delete the all time series metrics of Prometheus?
   - /api/v1/admin/tsdb/delete HTTP endpoint 
+  - curl -X POST -g 'http://localhost:9090/api/v1/admin/tsdb/clean_tombstones'
 - Which format does file-based SD provide?
   - simple text file where each line contains a key value pair 
+  - yaml and json
 #### PromQL (28%)
 What is PromQL?
 What is histogram metric in Prometheus?
