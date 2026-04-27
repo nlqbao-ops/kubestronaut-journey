@@ -829,56 +829,114 @@ What is the name of the vector in Prometheus that stores a single sample value?
 #### Instrumentation and Exporters (16%)
 - What is the HTTP headers to establish by Prometheus during each scrape?
   - HTTP GET
+  - x-prometheus-scrape-timeout-seconds
 - Which 2 query parameters are required when configuring a Blackbox Exporter probe?
-
+  - target + module
 - What is the exposition format of Prometheus?
   - under /metrics path
   - human readable format: prometheus text format and openmetrics
 - Does Prometheus need to perform any format conversion on the metrics returned by a monitored Linux machine?
+  - no
 - What is the default endpoint that Prometheus uses to scrape the metrics from the target?
   - /metrics
 - Where is the version of the Prometheus exporter typically defined?
-  - config file
-  - helm chart 
+  - build_info
 - What is the most suitable exporter for monitoring an HTTP web server endpoint to verify that it returns a 200 status code?
   - blackbox exporter 
-  - http prober s
-Which Prometheus exporter is recommended for monitoring network devices?
-Which networking protocol does Prometheus utilize for performing scrapes?
-What is the purpose of a Prometheus metrics registry?
-What is the purpose or definition of a Prometheus exporter?
-In what scenarios would you use the Blackbox Exporter?
-How does Prometheus identify the scrape path for its targets?
-Which endpoints allows blackbox probing?
-In a scenario where you have a dynamic etcd database containing scrape targets for Prometheus, how should you configure service discovery?
-What are the 2 types of attributes that can be present in the /metrics endpoint?
-Which exporter is the most suitable for monitoring Scala metrics among the following options?
-How to keep pushgateway job labels? normally there are overwritten
-How does Prometheus scrape the last batch job push time?
-What is the 3 types of service system?
+- Which Prometheus exporter is recommended for monitoring network devices?
+  - SNMP exporter
+- Which networking protocol does Prometheus utilize for performing scrapes?
+  - HTTP protocol
+- What is the purpose of a Prometheus metrics registry?
+  - metrics registry for storing and mange metrics data, allowing for efficient querying and analysis 
+
+- What is the purpose or definition of a Prometheus exporter?
+  - exporter to collect metrics from a system or app and expose them in a format that prometheus can scrape 
+- In what scenarios would you use the Blackbox Exporter?
+  - blackbox exporter to monitor system from the outside without requiring internal knowledge 
+  - network service monitoring
+  - health check, external monitoring 
+- How does Prometheus identify the scrape path for its targets?
+  - config file: scrap_configs -> static_configs > metrics_path: /metrics
+  - service discovery 
+  - annotation 
+  - /metrics 
+- Which endpoints allows blackbox probing?
+  - endpoints over HTTP, HTTPS, DNS, TCP, ICMP
+- In a scenario where you have a dynamic etcd database containing scrape targets for Prometheus, how should you configure service discovery?
+  - service discovery: file_sd_configs 
+
+- What are the 2 types of attributes that can be present in the /metrics endpoint?
+  - HELP, TYPE
+
+- Which exporter is the most suitable for monitoring Scala metrics among the following options?
+  - JMX exporter
+- How to keep pushgateway job labels? normally there are overwritten
+  - honor_label 
+- How does Prometheus scrape the last batch job push time?
+  - job_last_success_unixtime
+- What is the 3 types of service system?
+  - online-service, offline processing, batch jobs 
 #### Recording & Alerting & Dashboarding (18%)
-Is there a way to deactivate a specific route in Alertmanager for a specific time frame?
-What is considered a best practice when it comes to alerting in monitoring systems: focusing on alerting based on symptoms or alerting based on causes?
-What is the meaning of “alert symptoms” and “alert causes” in the context of monitoring systems?
-Which aspect, symptoms or causes, is more visible to customers in the context of an issue?
-What is the good naming convention for the recoring rules?
-What is the acknowledge-based throttling and Waht is the time-based throttling?
-What are the 3 statuses of a Prometheus alert?
-How can I use a PromQL query to retrieve the currently active alerts in Alertmanager?
-What is the recording rules in Prometheus?
-How to define the recording rules?
-Whas is the alert fatigue?
-Which feature of Alertmanager is responsible for formatting and customizing the alerts?
-How can you configure Alertmanager to disable the grouping of alerts for a specific route effectively?
-Which software is commonly used for visualizing Prometheus metrics?
-What does the term “inhibiting” refer to in the context of Alertmanager?
-What is the format used for defining alerting rules?
-What is the significance of the for attribute in a Prometheus alert rule?
-How can you temporarily mute/snooze/suppress an alert during maintenance in Prometheus?
-What is the name of Prometheus native dashboarding and visualization feature?
-How can you coordinate the simultaneous sending of multiple alerts with similar label sets in Prometheus?
-Which feature of Alertmanager is resonsilbe for sending alert to the right receiver?
-What is the purpose of the repeat_interval/conitnue/group_wait/group_inteval attribute in an Alertmanager route configuration?
-Which 2 attributes of an alerting rule can be used to include extra metadata?
-What are required for a high-availability configuration of Alertmanager?
-What are the 3 statuses of Alertmanager Silences?
+
+- Is there a way to deactivate a specific route in Alertmanager for a specific time frame?
+  - mute_time_internal
+  - time_intervals
+-  What is considered a best practice when it comes to alerting in monitoring systems: focusing on alerting based on symptoms or alerting based on causes?
+  - based on symptons 
+- What is the meaning of “alert symptoms” and “alert causes” in the context of monitoring systems?
+  - alert symptoms: focus on symptons, may have many causes, "what broken" 
+  - alert cause: focus on underlying issues, "why broken" 
+- Which aspect, symptoms or causes, is more visible to customers in the context of an issue?
+  - symptons
+- What is the good naming convention for the recoring rules?
+  - level:metric:operations
+- What is the acknowledge-based throttling and Waht is the time-based throttling?
+  - throttling: mechanism to prenvent too many executions fo the same actions 
+  - acknowledge-based throttling: prevent watch action from being executed again while the watch condition remains true 
+  - time-based throttling: limits how often an action is executed by defining a throttling period 
+- What are the 3 statuses of a Prometheus alert?
+  - inactive, pending, firign
+- How can I use a PromQL query to retrieve the currently active alerts in Alertmanager?
+  - Menu > alerts > query > alerts 
+- What is the recording rules in Prometheus?
+  - predefined processing step for metrics data
+  - aggregate and filter metrics with promQL and storing them into Prometheus DB 
+- How to define the recording rules?
+  - yaml file 
+  - rules -> record: xxx, expr: xxx
+- Whas is the alert fatigue?
+  - too many alerts triggering lead make the monitor ineffective 
+- Which feature of Alertmanager is responsible for formatting and customizing the alerts?
+  - notification template
+- How can you configure Alertmanager to disable the grouping of alerts for a specific route effectively?
+  - group_by
+- Which software is commonly used for visualizing Prometheus metrics?
+  - grafana
+- What does the term “inhibiting” refer to in the context of Alertmanager?
+  - suppresing low priority alert while high priority is firing
+  - allow certain alerts to be stopped or prevented from generate noti for specified time  
+- What is the format used for defining alerting rules?
+  - yaml 
+- What is the significance of the for attribute in a Prometheus alert rule?
+  - specifies the duration for a condition must be true before an alert is triggered 
+- How can you temporarily mute/snooze/suppress an alert during maintenance in Prometheus?
+  - Silence
+- What is the name of Prometheus native dashboarding and visualization feature?
+  - Prometheus Console
+- How can you coordinate the simultaneous sending of multiple alerts with similar label sets in Prometheus?
+  - Grouping 
+- Which feature of Alertmanager is resonsilbe for sending alert to the right receiver?
+  - routing
+- What is the purpose of the repeat_interval/conitnue/group_wait/group_inteval attribute in an Alertmanager route configuration?
+  - control noti frequency and behavior for alert group 
+  - repeat_interval: wait time before a firing alert that has already been succesful
+  - contine: whether to continue processing subsequent routes 
+  - group_wait: set how long initially wait to send a noti
+  - group_internal: how long to wait before send noti about new alert
+- Which 2 attributes of an alerting rule can be used to include extra metadata?
+  - labels and annotations 
+- What are required for a high-availability configuration of Alertmanager?
+  - --cluster-* flags 
+- What are the 3 statuses of Alertmanager Silences?
+  - Active, Pending, Expired 
