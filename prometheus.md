@@ -3,6 +3,7 @@
 > Exam taken **after** shared foundations with OTelCA are complete (Weeks 1–5 of dual plan).
 > PCA-specific deep dive: **Weeks 6–7**, then integration review in **Week 10**.
 
+- passed with 82% in April 2026
 
 ## learning
 
