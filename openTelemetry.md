@@ -231,4 +231,5 @@
 - [OTel demo app](https://github.com/open-telemetry/opentelemetry-demo) — full microservices example with all three signals wired up
 - [Semantic conventions registry](https://opentelemetry.io/docs/specs/semconv/) — full attribute reference
 - Practice environment: run OTel Collector + Jaeger + Prometheus via Docker Compose using the OTel demo 
-
+OTel demo app:
+https://github.com/open-telemetry/opentelemetry-demo
