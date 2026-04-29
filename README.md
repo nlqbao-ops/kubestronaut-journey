@@ -44,6 +44,7 @@ Increase your chance of becoming certified on the first try by taking:
 
 #### prometheus certified associate
 
+- passed in April'2026 with 82%
 pre-professional
 
 https://trainingportal.linuxfoundation.org/courses/monitoring-systems-and-services-with-prometheus-lfs241
